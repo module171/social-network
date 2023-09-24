@@ -8,10 +8,16 @@ import HTTP_STATUS from 'http-status-codes';
 import 'express-async-errors';
 import compression from 'compression';
 import { config } from './config';
-const SERVER_PORT = 500;
 import { Server } from 'socket.io';
 import { createClient } from 'redis';
 import { createAdapter } from '@socket.io/redis-adapter';
+import applicationRoutes from './routes';
+import CustomError, { IErrorResponse } from '@global/helpers/error-handler';
+import Logger from 'bunyan';
+
+const SERVER_PORT = 5000;
+const log: Logger = config.createLogger('server');
+
 
 export class ChattyServer {
     private app: Application;
@@ -45,9 +51,19 @@ export class ChattyServer {
     }
 
     private routeMiddleWare(app: Application): void {
-
+        applicationRoutes(app);
     }
     private globalErrorHandler(app: Application): void {
+        app.all("*", (req: Request, res: Response) => {
+            res.status(HTTP_STATUS.NOT_FOUND).json({ message: `${req.originalUrl} not found` })
+        })
+        app.use((error: IErrorResponse, req: Request, res: Response, next: NextFunction) => {
+            log.error(error)
+            if (error instanceof CustomError) {
+                return res.status(error.statusCode).json(error.serializeErrors());
+            }
+            next();
+        });
 
     }
     private async startServer(app: Application): Promise<void> {
@@ -58,7 +74,7 @@ export class ChattyServer {
             this.socketIOConnections(SocketIO);
 
         } catch (error) {
-            console.log(error);
+            log.error(error);
         }
     }
     private async createSocketIO(httpServer: http.Server): Promise<Server> {
