@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import bunyan from 'bunyan';
+import cloudinary from 'cloudinary';
 dotenv.config({});
 class Config {
   public DATABASE_URL: string | undefined;
@@ -42,6 +43,13 @@ class Config {
   }
   public createLogger(name: string): bunyan {
     return bunyan.createLogger({ name, level: 'debug' });
+  }
+  public cloudinaryConfig(): void {
+    cloudinary.v2.config({
+      cloud_name: this.CLOUD_NAME,
+      api_key: this.CLOUD_API_KEY,
+      api_secret: this.CLOUD_API_SECRET
+    });
   }
 }
 
