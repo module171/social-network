@@ -7,7 +7,7 @@ import { BadRequestError } from '@global/helpers/error-handler';
 import JWT from 'jsonwebtoken';
 import { loginSchema } from '@auth/schemes/signin';
 import { IAuthDocument } from '@auth/interfaces/auth.interface';
-import { IUserDocument } from '@user/interfaces/user.interface';
+import {  IUserDocument } from '@user/interfaces/user.interface';
 import { userService } from '@service/db/user.service';
 
 export class SignIn {
@@ -44,6 +44,8 @@ export class SignIn {
       uId: existingUser!.uId,
       createdAt: existingUser!.createdAt
     } as IUserDocument;
+
+
     req.session = { jwt: userJwt };
     res.status(HTTP_STATUS.OK).json({ message: 'User login succesfully', user: userDocument, token: userJwt });
   }

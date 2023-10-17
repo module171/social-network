@@ -4,9 +4,10 @@ import { createBullBoard } from '@bull-board/api';
 import { BullAdapter } from '@bull-board/api/bullAdapter';
 import { ExpressAdapter } from '@bull-board/express';
 import { config } from '@root/config';
-import Bull from 'bull';
+// import Bull from 'bull';
 import { IAuthJob } from '@auth/interfaces/auth.interface';
-type IBaseJobData = IAuthJob;
+import { IEmailJob } from '@user/interfaces/user.interface';
+type IBaseJobData = IAuthJob | IEmailJob;
 let bullAdapters: BullAdapter[] = [];
 export let serverAdapter: ExpressAdapter;
 export abstract class BaseQueue {
