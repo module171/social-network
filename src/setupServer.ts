@@ -99,7 +99,5 @@ export class ChattyServer {
       console.log(`Server running on port ${SERVER_PORT}`);
     });
   }
-  private socketIOConnections(io: Server): void {
-
-  }
+  private socketIOConnections(io: Server): void {}
 }
