@@ -9,7 +9,7 @@ import { Helpers } from '@global/helpers/helpers';
 import { uploads } from '@global/helpers/cloudinary-upload';
 import HTTP_STATUS from 'http-status-codes';
 import { IUserDocument } from '@user/interfaces/user.interface';
-import cloudinary, { UploadApiResponse, UploadApiErrorResponse } from 'cloudinary';
+import { UploadApiResponse } from 'cloudinary';
 import { UserCache } from '@service/redis/user.cache';
 import { omit } from 'lodash';
 import { authQueue } from '@service/queues/auth.queue';
@@ -50,7 +50,7 @@ export class SignUp {
     const userJwt: string = SignUp.prototype.signToken(authData, userObjectId);
     req.session = { jwt: userJwt };
 
-    res.status(HTTP_STATUS.CREATED).json({ message: 'User created succesfully', user: userDataForCache, token: userJwt });
+    res.status(HTTP_STATUS.CREATED).json({ message: 'User created successfully', user: userDataForCache, token: userJwt });
   }
   private signToken(data: IAuthDocument, userObjectId: ObjectId): string {
     return JWT.sign(
@@ -69,7 +69,7 @@ export class SignUp {
     return {
       _id,
       uId,
-      username: Helpers.firstLetterUpperCase(username),
+      username: Helpers.firstLetterUppercase(username),
       email: Helpers.lowCase(email),
       password,
       avatarColor,
@@ -82,7 +82,7 @@ export class SignUp {
       _id: userObjectId,
       authId: _id,
       uId,
-      username: Helpers.firstLetterUpperCase(username),
+      username: Helpers.firstLetterUppercase(username),
       email,
       password,
       avatarColor,

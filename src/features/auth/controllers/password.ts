@@ -38,7 +38,7 @@ export class Password{
    }
    const existingUser :IAuthDocument = await authService.getAuthUserByPasswordToken(token);
    if (!existingUser) {
-    throw new BadRequestError('Reset token has expried.');
+    throw new BadRequestError('Reset token has expired.');
   }
   existingUser.password = password;
   existingUser.passwordResetExpires = undefined;
