@@ -13,6 +13,7 @@ class CommmentService{
     const post:Query<IPostDocument,IPostDocument> = PostModel.findOneAndUpdate({_id:postId},{
       $inc :{commentsCount : 1}
     },{new:true}) as Query<IPostDocument,IPostDocument> ;
+
     const user : Promise<IUserDocument> = userCache.getUserFromCache(userTo) as Promise<IUserDocument>;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const response:[ICommentDocument,IPostDocument,IUserDocument] =await Promise.all([comments,post,user]);

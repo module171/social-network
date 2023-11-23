@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
 import { ReactionCache } from '@service/redis/reaction.cache';
-import { reactionQueue } from '@service/queues/reaction.queue';
-import { IReactionDocument, IReactionJob } from '@reaction/interfaces/reaction.interface';
+import { IReactionDocument } from '@reaction/interfaces/reaction.interface';
 import { reactionService } from '@service/db/reaction.service';
 import mongoose from 'mongoose';
 const reactionCache: ReactionCache = new ReactionCache();
