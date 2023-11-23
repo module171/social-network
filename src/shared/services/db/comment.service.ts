@@ -1,9 +1,9 @@
-import { ICommentDocument, ICommentJob, ICommentNameList, IQueryComment } from "@comment/interfaces/comment.interface";
-import { CommentsModel } from "@comment/models/comment.schema";
-import { IPostDocument } from "@post/interfaces/post.interface";
-import { PostModel } from "@post/models/post.schema";
-import { UserCache } from "@service/redis/user.cache";
-import { IUserDocument } from "@user/interfaces/user.interface";
+import { ICommentDocument, ICommentJob, ICommentNameList, IQueryComment } from '@comment/interfaces/comment.interface';
+import { CommentsModel } from '@comment/models/comment.schema';
+import { IPostDocument } from '@post/interfaces/post.interface';
+import { PostModel } from '@post/models/post.schema';
+import { UserCache } from '@service/redis/user.cache';
+import { IUserDocument } from '@user/interfaces/user.interface';
 import { Query } from 'mongoose';
 const userCache:UserCache = new UserCache();
 class CommmentService{
@@ -37,7 +37,7 @@ class CommmentService{
         $sum:1
    }
      }},
-     {$project :{_id:0}}
+     { $project: { _id: 0 } }
     ]);
     return commentsNameList;
    }
